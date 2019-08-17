@@ -54,7 +54,7 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 	public String toString(){
 		String str="Centroid=(";
 		for(int i=0;i<centroid.getLength();i++)
-			str+=centroid.get(i);
+			str+=centroid.get(i)+ " ";
 		str+=")";
 		return str;
 
