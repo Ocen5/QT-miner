@@ -9,6 +9,7 @@ import java.net.SocketException;
 
 import keyboardinput.Keyboard;
 
+
 public class MainTest
 { 
 
@@ -50,7 +51,7 @@ public class MainTest
 		System.out.print("Table Name:");
 		String tabName = Keyboard.readString();
 		out.writeObject(tabName);
-		double r = 1.0;
+		double r = 1;
 		do
 		{
 			System.out.print("Radius:");
@@ -113,7 +114,7 @@ public class MainTest
 
 	public static void main(String[] args)
 	{
-		String ip = "127.0.0.1";
+		String ip = "192.168.0.8";
 		int port = new Integer("8080").intValue();
 		MainTest main = null;
 		try

@@ -23,7 +23,7 @@ public class DbAccess {
 	public static void initConnection() throws DatabaseConnectionException, ClassNotFoundException, SQLException
 	{	
 		Class.forName(DRIVER_CLASS_NAME); 
-		conn = DriverManager.getConnection(DBMS+"://"+SERVER+":"+PORT+"/"+DATABASE,USER_ID,PASSWORD);
+		conn = DriverManager.getConnection(DBMS+"://"+SERVER+":"+PORT+"/"+DATABASE+"?autoReconnect=true&useSSL=false",USER_ID,PASSWORD);
 	}
 
 	public static Connection getConnection()
