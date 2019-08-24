@@ -4,7 +4,7 @@ public class ClusteringRadiusException extends Exception{
 
 	public ClusteringRadiusException()
 	{
-		System.err.println("14 tuples in one cluster!");
+		System.err.println("more than 14 tuples in one cluster!");
 	}
 
 }

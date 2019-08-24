@@ -29,7 +29,7 @@ public class QTMiner implements Serializable {
 	}
 
 	public void salva(String fileName) throws FileNotFoundException, IOException {
-		
+
 		FileOutputStream outf = new FileOutputStream(fileName);
 		ObjectOutputStream out = new ObjectOutputStream(outf); // Apre il file identificato fileName
 		out.writeObject(C); // salva l'oggetto C nel file.
@@ -68,11 +68,8 @@ public class QTMiner implements Serializable {
 
 		}
 
-		if (numclusters == 1) {
-			throw new ClusteringRadiusException();
-		} else {
-			return numclusters;
-		}
+		return numclusters;
+
 
 	}
 
@@ -102,7 +99,7 @@ public class QTMiner implements Serializable {
 			}
 		}
 		return cD;
-		
+
 		/* costruisce un cluster per ciascuna tupla di data non ancora clusterizzata in
 		 * un cluster di C e restituisce il cluster candidato più popoloso
 		 */

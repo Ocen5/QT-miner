@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -123,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String result = (String) in.readObject();
                 if (!result.equals("OK")) {
-                    testo = "erroreT";
+                    testo = "SQL_Error";
+                    this.interrupt();
                 }
                 out.writeObject(1);
 
@@ -131,15 +133,20 @@ public class MainActivity extends AppCompatActivity {
                 result = (String) in.readObject();
                 if (result.equals("OK"))
                     testo= "Number of Clusters:" + in.readObject() +" \n" + in.readObject();
-                else{
-                    testo="erroreR";
+                else if(result.equals("ErroreC")) {
+                    Log.i("err",result);
+                    testo="ClusteringRadiusException";
+                }else{
+                    testo="SQL_Error";
+                    this.interrupt();
                 }
                 out.writeObject(2);
 
                 result = (String) in.readObject();
 
                 if (!result.equals("OK")) {
-                    testo = "erroreL";
+                    testo = "SQL_Error";
+                    this.interrupt();
                 }
             }catch (IOException e){
                 e.printStackTrace();
