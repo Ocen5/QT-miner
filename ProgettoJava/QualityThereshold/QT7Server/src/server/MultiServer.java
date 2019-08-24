@@ -15,7 +15,7 @@ public class MultiServer {
 	private static void run() throws IOException
 	{
 		ServerSocket s = new ServerSocket (PORT);
-		System.out.println("Server Started: " + s);
+		System.out.println("Server Started : " + s);
 		try 
 		{
 			Socket socket =s.accept();
@@ -35,8 +35,10 @@ public class MultiServer {
 		finally
 		{
 			s.close();
+			System.out.println("server closed");
 		}
 
 	}
 
 }
+
