@@ -114,7 +114,7 @@ public class MainTest
 
 	public static void main(String[] args)
 	{
-		String ip = "192.168.0.8";
+		String ip = "127.0.0.1";
 		int port = new Integer("8080").intValue();
 		MainTest main = null;
 		try

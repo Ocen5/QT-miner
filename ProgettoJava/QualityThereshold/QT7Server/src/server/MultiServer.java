@@ -7,6 +7,7 @@ import java.net.Socket;
 public class MultiServer {
 
 	private static int PORT = 8080;
+	private static ServerSocket s;
 
 	public static void main(String[] args) throws IOException {
 		run();
@@ -14,31 +15,33 @@ public class MultiServer {
 
 	private static void run() throws IOException
 	{
-		ServerSocket s = new ServerSocket (PORT);
+		s = new ServerSocket (PORT);
 		System.out.println("Server Started : " + s);
-		try 
 		{
-			Socket socket =s.accept();
-
-			try 
-			{
-				System.out.println ("Connection accepted: "+socket);
-				new ServerOneClient(socket);
-
-			} 
-			catch (IOException e)
-			{
-				socket.close();
-			} 
-
+			try {
+				while (true) {
+					Socket socket = s.accept();
+					System.out.println("accepting " + socket);
+					try {
+						new ServerOneClient(socket);
+					} catch (IOException e) {
+						System.err.println(e.getMessage());
+					}
+				}
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			} finally {
+				close();
+			}
 		}
-		finally
-		{
-			s.close();
-			System.out.println("server closed");
-		}
-
 	}
-
+	
+	public static void close() {
+		try {
+			s.close();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 }
 

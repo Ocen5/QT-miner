@@ -1,12 +1,14 @@
 package com.example.ablminer;
 
-import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -102,11 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             else
-                try {
-                    throw new ServerException(result);
-                } catch (ServerException e) {
-                    e.printStackTrace();
-                }
+                testo="Input non validi";
         }
     }
     static class Thread3 extends Thread {
@@ -120,31 +118,32 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             try {
                 out.writeObject(0);
-                //out.reset();
+
                 out.writeObject(tab);
-                //out.reset();
+
                 String result = (String) in.readObject();
-                if (!result.equals("OK"))
-                    throw new ServerException(result);
+                if (!result.equals("OK")) {
+                    testo = "erroreT";
+                }
                 out.writeObject(1);
-                // out.reset();
+
                 out.writeObject(rag);
-                //out.reset();
                 result = (String) in.readObject();
                 if (result.equals("OK"))
                     testo= "Number of Clusters:" + in.readObject() +" \n" + in.readObject();
-                //in.close();
+                else{
+                    testo="erroreR";
+                }
                 out.writeObject(2);
-                //out.reset();
+
                 result = (String) in.readObject();
-                // in.close();
-                if (!result.equals("OK"))
-                    throw new ServerException(result);
+
+                if (!result.equals("OK")) {
+                    testo = "erroreL";
+                }
             }catch (IOException e){
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (ServerException e) {
                 e.printStackTrace();
             }
         }

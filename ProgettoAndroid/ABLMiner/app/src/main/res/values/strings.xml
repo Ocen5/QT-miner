@@ -36,4 +36,8 @@
     <string name="svantaggi">1) Computationally Intensive and Time Consuming - Increasing the minimum cluster size or increasing the number of data points can greatly increase the computational time.
 2) Threshold distance and minimum number of elements in the cluster must be defined apriori.
 </string>
+    <string name="tablenone">Tabella non esiste</string>
+    <string name="savenone">Salvataggio non riuscito</string>
+    <string name="radiusnone">Raggio non valido</string>
+    <string name="errT">erroreT</string>
 </resources>
