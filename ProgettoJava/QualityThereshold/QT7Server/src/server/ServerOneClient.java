@@ -104,7 +104,7 @@ public class ServerOneClient extends Thread
 					}
 					catch (IOException e)
 					{
-
+						out.writeObject("File doesnt't exists!!");
 						e.printStackTrace();
 					}
 					break;

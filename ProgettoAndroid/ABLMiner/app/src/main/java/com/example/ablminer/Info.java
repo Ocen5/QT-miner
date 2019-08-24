@@ -32,6 +32,7 @@ public class Info extends AppCompatActivity {
         e.printStackTrace();
     }
         info.setMovementMethod(new ScrollingMovementMethod());
+
         SpannableString spannableString = new SpannableString(sampleString.toString());
         spannableString.setSpan(new RelativeSizeSpan(1.5f), 0, 43, 0);
         spannableString.setSpan(new RelativeSizeSpan(1.3f), 710, 745, 0);
