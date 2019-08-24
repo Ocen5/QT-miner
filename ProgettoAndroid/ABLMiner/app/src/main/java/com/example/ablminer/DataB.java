@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,13 +41,13 @@ public class DataB extends AppCompatActivity {
                     String testo = MainActivity.storeTableFromDb(Table_name, Radius);
                     tvMessages.setMovementMethod(new ScrollingMovementMethod());
                     if (testo != null) {
-                        if (testo.equals(getString(R.string.errT))) {
-                            tvMessages.setText(R.string.tablenone);
-                        } else if (testo.equals("erroreL")) {
-                            tvMessages.setText(R.string.savenone);
-                        } else if (testo.equals("erroreR")) {
-                            tvMessages.setText(R.string.radiusnone);
-                        } else {
+                        if (testo.equals("SQL_Error")) {
+                            Toast.makeText(getApplicationContext(),"Table doesnt't match any existings tables",Toast.LENGTH_LONG).show();
+                            runActivityMain();
+                        }else if (testo.equals("ClusteringRadiusException")) {
+                            Toast.makeText(getApplicationContext()," Too much tuples in one cluster !!",Toast.LENGTH_LONG).show();
+                            runActivityMain();
+                        }else {
                             testo += " \n File saved";
                             tvMessages.setText(testo);
                         }
@@ -102,5 +103,9 @@ public class DataB extends AppCompatActivity {
     public void runDialog() {
         Intent dialog = new Intent(this, Dialog.class);
         startActivity(dialog);
+    }
+    public void runActivityMain() {
+        Intent main = new Intent(this, MainActivity.class);
+        startActivity(main);
     }
 }

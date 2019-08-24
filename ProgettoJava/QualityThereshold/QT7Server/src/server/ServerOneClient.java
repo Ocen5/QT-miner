@@ -64,16 +64,20 @@ public class ServerOneClient extends Thread
 				case 1:
 					radius = (double) in.readObject();
 					qt = new QTMiner(radius);
-					try
-					{
-						int numC = qt.compute(data);
-						out.writeObject("OK");
-						out.writeObject(numC);
-						out.writeObject(qt.getC().toString(data));
+					
+					int numC;
+					try {
+						numC = qt.compute(data);
+					
+					if(numC==1) {
+						out.writeObject("ErroreC");
+						throw new ClusteringRadiusException();
 					}
-					catch (ClusteringRadiusException e)
-					{
-						e.printStackTrace();
+					out.writeObject("OK");
+					out.writeObject(numC);
+					out.writeObject(qt.getC().toString(data));
+					} catch (ClusteringRadiusException e1) {
+						e1.printStackTrace();
 					}
 
 					break;
@@ -114,7 +118,11 @@ public class ServerOneClient extends Thread
 		}
 		catch (ClassNotFoundException | IOException | EmptyDatasetException | SQLException | EmptySetException e)
 		{
-
+			try {
+				out.writeObject("throwing Exception");
+			}catch(IOException f) {
+				f.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 
