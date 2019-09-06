@@ -31,7 +31,8 @@ public class ClusterSet implements Iterable<Cluster>, Serializable{
 	}
 
 	/**
-	 * @return a string with every centroid of the Set C
+	 * Overrides Object's toString,
+	 * return a string with every centroid of the Set C
 	 */
 	public String toString(){
 		String output="";

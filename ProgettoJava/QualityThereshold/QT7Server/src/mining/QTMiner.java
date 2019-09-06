@@ -58,7 +58,7 @@ public class QTMiner implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Return the Set of Clusters C
 	 * @return the Set of Clusters C
 	 */
 	public ClusterSet getC() {
@@ -66,6 +66,7 @@ public class QTMiner implements Serializable {
 	}
 	
 	/**
+	 * Computes data related to radius:
 	 * 1)Builds a cluster for each tuple not yet clustered, including data(not yet clustered
 	 * 	 in other clusters) that are in the spherical neighborhood of the tuple with radius in input.
 	 * 2)Than saves the most populous cluster and removes all data of this cluster by List of tuple
@@ -102,7 +103,7 @@ public class QTMiner implements Serializable {
 	}
 
 	/**
-	 * Builds a cluster for each cluster not yet clustered and establishes which one is the most populous
+	 * Builds a cluster for each tuple not yet clustered and establishes which one is the most populous
 	 * @param data is the table of tuples that will be clustered
 	 * @param isClustered is a vector of boolean that models which tuple in data are clustered and which not
 	 * @return the most populous cluster found
@@ -131,8 +132,8 @@ public class QTMiner implements Serializable {
 	}
 	
 	/**
-	 * Overrides Object's toString
-	 * @return a string with every centroid of the Set C
+	 * Overrides Object's toString,
+	 * a string with every centroid of the Set C
 	 */
 	public String toString()
 	{

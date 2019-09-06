@@ -23,6 +23,7 @@ public abstract class Item implements Serializable{
 	}
 
 	/**
+	 * Return the Attribute stored in the Item
 	 * @return the attribute stored in the Item 
 	 */
 	Attribute getAttribute() {
@@ -30,6 +31,7 @@ public abstract class Item implements Serializable{
 	}
 
 	/**
+	 * Return the value of the attribute stored in the Item
 	 * @return value of the attribute stored in the Item
 	 */
 	Object getValue() {

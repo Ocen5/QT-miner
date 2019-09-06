@@ -23,6 +23,7 @@ public class DiscreteAttribute extends Attribute implements Iterable<String>
 	}
 
 	/**
+	 * Return size of the set "values"
 	 * @return size of the set "values"
 	 */
 	int getNumberOfDistinctValues()
@@ -31,6 +32,7 @@ public class DiscreteAttribute extends Attribute implements Iterable<String>
 	}
 
 	/**
+	 * Return an iterator from the set "values"
 	 * @return an iterator from the set "values"
 	 */
 	@Override

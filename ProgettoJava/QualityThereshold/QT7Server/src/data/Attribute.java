@@ -22,6 +22,7 @@ public abstract class Attribute implements Serializable {
 	};
 	
 	/**
+	 * Return name of Attribute 
 	 * @return name of the attribute
 	 */
 	String getName() 
@@ -30,6 +31,7 @@ public abstract class Attribute implements Serializable {
 	};
 	
 	/**
+	 * Return index of the Attribute
 	 * @return index of the attribute
 	 */
 	int getIndex()

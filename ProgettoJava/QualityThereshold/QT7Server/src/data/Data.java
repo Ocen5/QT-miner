@@ -28,7 +28,10 @@ public class Data implements Serializable{
 	private List<Attribute> attributeSet;
 	
 	/**
-	 * Public constructor 
+	 * Public constructor,
+	 * it load data from database's table called as parameter 'table' into 
+	 * an ArrayList, initializes attributeSet with five objects of type 
+	 * Attributes, one for each attribute. 
 	 * @param table is the name of the table in SQL database
 	 * @throws EmptyDatasetException when the table modeled by data is empty
 	 * @throws SQLException when there are an error on connection with database
@@ -107,7 +110,7 @@ public class Data implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Return number of tuples stored in data
 	 * @return the number of tuples stored in data
 	 */
 	public int getNumberOfExamples(){
@@ -115,7 +118,7 @@ public class Data implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Return number of types of attribute that data have
 	 * @return the number of attribute stored in attributeSet 
 	 */
 	public int getNumberOfAttributes(){
@@ -123,7 +126,7 @@ public class Data implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Return the attribute in position (exampleIndex,attributeIndex)
 	 * @param exampleIndex is the index of data from which get the attribute
 	 * @param attributeIndex is the index of tuple from which get the attribute
 	 * @return the attribute in position (exampleIndex,attributeIndex) of data
@@ -131,9 +134,9 @@ public class Data implements Serializable{
 	public Object getAttributeValue(int exampleIndex, int attributeIndex) {
 		return data.get(exampleIndex).get(attributeIndex);
 	}
-
+ 
 	/**
-	 * 
+	 * Return attributeSet
 	 * @return the list of attributes of data
 	 */
 	public List<Attribute> getAttribute(){

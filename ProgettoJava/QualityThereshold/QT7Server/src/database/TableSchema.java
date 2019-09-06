@@ -40,6 +40,7 @@ public class TableSchema {
 		}
 		
 		/**
+		 * Return the name of the column
 		 * @return name
 		 */
 		public String getColumnName(){
@@ -47,6 +48,7 @@ public class TableSchema {
 		}
 		
 		/**
+		 * Return true if column's type is number
 		 * @return true if column's type is number
 		 */
 		public boolean isNumber(){
@@ -102,7 +104,7 @@ public class TableSchema {
 	}
 
 	/**
-	 * 
+	 * Return number of attributes in the schema
 	 * @return number of attributes in the schema
 	 */
 	public int getNumberOfAttributes(){
@@ -110,7 +112,7 @@ public class TableSchema {
 	}
 
 	/**
-	 * 
+	 * Return the column in schema in position 'index'
 	 * @param index of the column to get
 	 * @return the column in schema in position 'index'
 	 */

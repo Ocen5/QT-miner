@@ -25,7 +25,7 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 	}
 
 	/**
-	 * 
+	 * Return centroid
 	 * @return centroid
 	 */
 	Tuple getCentroid(){
@@ -33,7 +33,7 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 	}
 	
 	/**
-	 * 
+	 * Return true if adding a tuple change the cluster
 	 * @param id is the identifier of the new tuple
 	 * @return true if adding a tuple change the cluster
 	 */
@@ -43,7 +43,7 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 	}
 
 	/**
-	 * 
+	 * Return true if the transition identified by 'id' is clustered in current Set
 	 * @param id is the identifier of the new tuple
 	 * @return true if the transition identified by 'id' is clustered in current Set
 	 */
@@ -60,7 +60,7 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 	}
 
 	/**
-	 * 
+	 * Return number clustered tuples
 	 * @return number clustered tuples
 	 */
 	int  getSize(){
@@ -77,8 +77,8 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 	}
 
 	/**
-	 * Overrides Object's toString
-	 * @return a string that models the state of the cluster
+	 * Overrides Object's toString,
+	 * return a string that models the state of the cluster
 	 */
 	public String toString(){
 		String str="Centroid=(";
@@ -90,8 +90,8 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 	}
 
 	/**
-	 * Overrides Object's toString
-	 * @return a string that models the state of the cluster
+	 * Overrides Object's toString,
+	 * return a string that models the state of the cluster
 	 */
 	public String toString(Data data){
 		String str="Centroid=( ";
@@ -112,7 +112,7 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 
 	@Override
 	/**
-	 * implement Comparable's compareTo() by comparing current cluster with cluster 'o'
+	 * Implement Comparable's compareTo() by comparing current cluster with cluster 'o'
 	 * @param o is the cluster that will be compared with current cluster 
 	 */
 	public int compareTo(Cluster o)

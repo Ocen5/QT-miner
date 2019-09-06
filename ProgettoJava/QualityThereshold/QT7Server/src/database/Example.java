@@ -20,7 +20,7 @@ public class Example implements Comparable<Example>, Serializable{
 	}
 	
 	/**
-	 * 
+	 * Return Object in position i on the example
 	 * @param i is the index of the object to return
 	 * @return return the object in position i from example
 	 */
@@ -29,7 +29,7 @@ public class Example implements Comparable<Example>, Serializable{
 	}
 	
 	/**
-	 * implements method compareTo() of Comparable.
+	 * Implements method compareTo() of Comparable.
 	 * @param ex is the example to compare with current example
 	 */
 	public int compareTo(Example ex) {

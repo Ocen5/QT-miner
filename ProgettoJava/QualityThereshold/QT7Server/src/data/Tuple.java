@@ -11,7 +11,7 @@ public class Tuple implements Serializable{
 	private Item [] tuple;
 
 	/**
-	 * Package constructor
+	 * Public constructor
 	 * @param size of the vector of Item
 	 */
 	public Tuple(int size)
@@ -20,7 +20,7 @@ public class Tuple implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Return the length of the vector tuple
 	 * @return the length of the vector tuple
 	 */
 	public int getLength()
@@ -29,9 +29,9 @@ public class Tuple implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Return the Item on the index i of the vector tuple
 	 * @param i index of the Item that you want to get
-	 * @return Item on the index i from the vector tuple
+	 * @return Item on the index i of the vector tuple
 	 */
 	public Item get(int i)
 	{
@@ -69,11 +69,10 @@ public class Tuple implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Return the average of the distances between the current tuple and those obtainable 
+	 * from the lines of data with index content in clusteredData
 	 * @param data is the table on which computes the distance with the current tuple
 	 * @param clusteredData is a set of Integer from which get the indexes of tuples in data
-	 * @return the average of the distances between the current tuple and those obtainable 
-	 * 		   from the lines of data with index content in clusteredData
 	 */
 	public double avgDistance(Data data, Set<Integer> clusteredData)
 	{

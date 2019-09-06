@@ -39,8 +39,7 @@ public class DbAccess {
 	}
 	
 	/**
-	 * 
-	 * @return the connection established with SQL database
+	 * Return the connection established with SQL database
 	 */
 	public static Connection getConnection()
 	{

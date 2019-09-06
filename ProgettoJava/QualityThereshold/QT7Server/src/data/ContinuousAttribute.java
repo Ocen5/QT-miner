@@ -36,9 +36,6 @@ public class ContinuousAttribute extends Attribute{
 		V=(v-min)/(max-min);
 		return V;
 	}
-
-
-
 }
 
 
