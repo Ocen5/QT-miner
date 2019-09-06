@@ -12,37 +12,68 @@ import data.Data;
 
 public class QTMiner implements Serializable {
 
+	/**
+	 * @attribute C is the clusterSet that will be computed
+	 * @attribute radius is the distance that a cluster can cover
+	 */
 	private ClusterSet C;
 	private double radius;
 
+	/**
+	 * Public constructor
+	 * @param radius is the distance that a cluster can cover
+	 */
 	public QTMiner(double radius) {
-		C = new ClusterSet(); // Crea l'oggetto array riferito da C
-		this.radius = radius; // inizializza radius con il parametro passato in input
+		C = new ClusterSet();
+		this.radius = radius;
 	}
 
+	/**
+	 * Public constructor, it build a ClusterSet by reading it on a file
+	 * @param fileName is the file's identifier
+	 * @throws FileNotFoundException when file doesn't exist
+	 * @throws IOException for every error from IO
+	 * @throws ClassNotFoundException when there are an error in cast between variable C and Object read by file
+	 */
 	public QTMiner(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
 
 		FileInputStream inf = new FileInputStream(fileName);
-		ObjectInputStream in = new ObjectInputStream(inf); // Apre il file identificato da fileName
-		C = (ClusterSet) in.readObject(); // legge e assegna l'oggetto memorizzato a C.
+		ObjectInputStream in = new ObjectInputStream(inf);
+		C = (ClusterSet) in.readObject();
 		in.close();
 	}
 
+	/**
+	 * Serialize the content of ClusterSet C in a file in File System 
+	 * @param fileName identifier that will be given to file
+	 * @throws FileNotFoundException
+	 * @throws IOException for every error from IO
+	 */
 	public void salva(String fileName) throws FileNotFoundException, IOException {
 
 		FileOutputStream outf = new FileOutputStream(fileName);
-		ObjectOutputStream out = new ObjectOutputStream(outf); // Apre il file identificato fileName
-		out.writeObject(C); // salva l'oggetto C nel file.
+		ObjectOutputStream out = new ObjectOutputStream(outf);
+		out.writeObject(C);
 		out.close();
 	}
 
+	/**
+	 * 
+	 * @return the Set of Clusters C
+	 */
 	public ClusterSet getC() {
-		return C;// restituisce l'insieme dei cluster C
+		return C;
 	}
-
-	/* Costruisce un cluster per ciascuna tupla non ancora clusterizzata, includendo
-	 * nel cluster i punti (non ancora clusterizzati in alcun altro cluster) che
-	 * ricadono nel vicinato sferico delle tuple con raggio radius
+	
+	/**
+	 * 1)Builds a cluster for each tuple not yet clustered, including data(not yet clustered
+	 * 	 in other clusters) that are in the spherical neighborhood of the tuple with radius in input.
+	 * 2)Than saves the most populous cluster and removes all data of this cluster by List of tuple
+	 *   not yet clustered.
+	 * 3)Returns at phase 1. while there are still tuples to assign to a cluster.
+	 * @param data is the table of tuples that will be computed
+	 * @return the number of cluster
+	 * @throws ClusteringRadiusException
 	 */
 	public int compute(Data data) throws ClusteringRadiusException {
 		int numclusters = 0;
@@ -67,19 +98,17 @@ public class QTMiner implements Serializable {
 			// Ripete il while finchè ci sono ancora tuple da assegnare ad un cluster
 
 		}
-
 		return numclusters;
-
-
 	}
 
-	/*
-	 * insieme di tuple da raggruppare in cluster,se isClustered[i]=FALSE allora la
-	 * tupla i-esima di data non è stata assegnata ad alcun cluster di C, TRUE
-	 * altrimenti
+	/**
+	 * Builds a cluster for each cluster not yet clustered and establishes which one is the most populous
+	 * @param data is the table of tuples that will be clustered
+	 * @param isClustered is a vector of boolean that models which tuple in data are clustered and which not
+	 * @return the most populous cluster found
 	 */
-	Cluster buildCandidateCluster(Data data, boolean isClustered[]) { // cD cluster vuoto che conterrà il più popoloso
-		Cluster cD = null;
+	Cluster buildCandidateCluster(Data data, boolean isClustered[]) {
+		Cluster cD = null; // cD cluster vuoto che conterrà il più popoloso
 		for (int i = 0; i < isClustered.length; i++) {
 			// inizializza il cluster candidato C con tutte le tuple che rientrano in radius
 			Cluster C = new Cluster(data.getItemSet(i));
@@ -94,16 +123,17 @@ public class QTMiner implements Serializable {
 
 				if (cD == null)
 					cD = C;
-				else if (C.getSize() > cD.getSize())// qui decido quale cluster tra cC e C è più popoloso
+				else if (C.getSize() > cD.getSize())// qui decido quale cluster tra cD e C è più popoloso
 					cD = C;
 			}
 		}
 		return cD;
-
-		/* costruisce un cluster per ciascuna tupla di data non ancora clusterizzata in
-		 * un cluster di C e restituisce il cluster candidato più popoloso
-		 */
 	}
+	
+	/**
+	 * Overrides Object's toString
+	 * @return a string with every centroid of the Set C
+	 */
 	public String toString()
 	{
 		return C.toString();

@@ -4,11 +4,21 @@ package data;
 public class ContinuousItem extends Item
 {
 
+	/**
+	 * Package constructor that uses the constructor of superclass Item
+	 * @param attribute 
+	 * @param value
+	 */
 	ContinuousItem(Attribute attribute, double value)
 	{
 		super(attribute, value);
 	}
 
+	/**
+	 * Computes the distance between the scaled value of the current Item
+	 * and the scaled value of associated at the parameter a
+	 * @return distance between current value and parameter a
+	 */
 	double distance(Object a)
 	{
 

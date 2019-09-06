@@ -3,31 +3,51 @@ package data;
 import java.io.Serializable;
 
 public abstract class Item implements Serializable{
-
-	public Attribute attribute;
-	public Object value;
-
+	
+	/**
+	 * @attribute Attribute is the type of attribute stored in the Item
+	 * @attribute Value is the value of attribute stored in the Item
+	 */
+	private Attribute attribute;
+	private Object value;
+	
+	/**
+	 * Package constructor
+	 * @param Attribute is the type of attribute stored in the Item 
+	 * @param Value is the value of attribute stored in the Item
+	 */
 	Item(Attribute attribute, Object value)
 	{
 		this.attribute=attribute;
 		this.value=value;
 	}
 
-	public Attribute getAttribute() {
-		return attribute;//restituisce attribute
+	/**
+	 * @return the attribute stored in the Item 
+	 */
+	Attribute getAttribute() {
+		return attribute;
 	}
 
-
-	public Object getValue() {
-		return value;//restituisce value
+	/**
+	 * @return value of the attribute stored in the Item
+	 */
+	Object getValue() {
+		return value;
 	}
-
+	
+	/**
+	 * Overrides Object's toString
+	 * @return the string by the value's toString()
+	 */
 	@Override
 	public String toString() {
-		return value.toString();//restituisce value
+		return value.toString();
 	}
 
 
-
-	abstract double distance(Object a);//L’implementazione sarà diversa per item discreto e item continuo
+	/**
+	 * abstract method which will be implemented differently in subclasses
+	 */
+	abstract double distance(Object a);
 }

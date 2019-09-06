@@ -8,18 +8,31 @@ import data.Data;
 
 public class ClusterSet implements Iterable<Cluster>, Serializable{
 
+	/**
+	 * @attribute C is a Set of clusters
+	 */
 	private Set<Cluster> C=new TreeSet<Cluster>();
 
+	/**
+	 * Public constructor
+	 */
 	public ClusterSet()
 	{
 		C = new TreeSet<Cluster>();
 	}
 
+	/**
+	 * Adds a cluster to C
+	 * @param c the cluster that will be added to C
+	 */
 	void add(Cluster c)
 	{
 		C.add(c);
 	}
 
+	/**
+	 * @return a string with every centroid of the Set C
+	 */
 	public String toString(){
 		String output="";
 		int j=1;
@@ -28,10 +41,13 @@ public class ClusterSet implements Iterable<Cluster>, Serializable{
 			output+=j+": "+it+"\n";
 			j++;
 		}
-		return output;//Restituisce una stringa fatta da ciascun centroide dell’insieme dei cluster C
-		
+		return output;
 	}
 
+	/**
+	 * Overrides Object's toString
+	 * @return a string with every centroid of the Set C
+	 */
 	public String toString(Data data)
 	{
 		String output = "";
@@ -47,6 +63,10 @@ public class ClusterSet implements Iterable<Cluster>, Serializable{
 	}
 
 	@Override
+	/**
+	 * Implements iterator() from Iterable by using Set.iterator()
+	 * @return an instance of Iterator
+	 */
 	public Iterator<Cluster> iterator()
 	{
 		return C.iterator();
