@@ -6,6 +6,11 @@ import java.net.Socket;
 
 public class MultiServer {
 
+	/**
+	 * @attribute PORT is the port that ServerSocket will use to accept Clients' connection 
+	 * 			  and build Socket
+	 * @attribute s is the ServerSocket that manages MultiServer
+	 */
 	private static int PORT = 8080;
 	private static ServerSocket s;
 
@@ -13,6 +18,12 @@ public class MultiServer {
 		run();
 	}
 
+	/**
+	 * Builds ServerSocket to the PORT 8080 and accept every client building 
+	 * an instance of ServerOneClient (subClass of Thread) that manage the connection
+	 * with a single Client through its own Thread. 
+	 * @throws IOException when connection between ServerSocket and PORT fails
+	 */
 	private static void run() throws IOException
 	{
 		s = new ServerSocket (PORT);
@@ -36,6 +47,9 @@ public class MultiServer {
 		}
 	}
 	
+	/**
+	 * Close the ServerSocket and every Socket still connected to some Client
+	 */
 	public static void close() {
 		try {
 			s.close();

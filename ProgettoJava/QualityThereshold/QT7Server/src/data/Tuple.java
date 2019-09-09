@@ -4,33 +4,57 @@ import java.util.Set;
 
 public class Tuple implements Serializable{
 
+	/**
+	 * @attribute tuple is a vector of Item that represents a sequence 
+	 * of couple attribute-value 
+	 */
 	private Item [] tuple;
 
-
-	Tuple(int size)//numero di item della tupla
+	/**
+	 * Public constructor
+	 * @param size of the vector of Item
+	 */
+	public Tuple(int size)
 	{
-		this.tuple=new Item[size];//costruisce l'oggetto riferito da tuple
+		this.tuple=new Item[size];
 	}
 
+	/**
+	 * Return the length of the vector tuple
+	 * @return the length of the vector tuple
+	 */
 	public int getLength()
 	{
-		return tuple.length;//restituisce tuple.length
+		return tuple.length;
 	}
 
+	/**
+	 * Return the Item on the index i of the vector tuple
+	 * @param i index of the Item that you want to get
+	 * @return Item on the index i of the vector tuple
+	 */
 	public Item get(int i)
 	{
-		return tuple[i];//restituisce lo Item in posizione i
+		return tuple[i];
 	}
 
-	void add(Item c,int i)
+	/**
+	 * Add a new Item in the vector tuple
+	 * @param c id the new Item to add
+	 * @param i is the index in which add the new Item
+	 */
+	public void add(Item c,int i)
 	{
-		tuple[i]=c;//memorizza c in tuple[i]
+		tuple[i]=c;
 	}
 
 
-	/*determina la distanza tra la tupla riferita da obj e la tupla corrente (riferita da this). 
-	 * La distanza è ottenuta come la somma delle distanze tra gli item in posizioni uguali nelle due tuple.
-	 * Fare uso di double distance(Object a) di Item*/
+	/**
+	 * Computes distance between the current tuple and the tuple obj. The distance is the sum 
+	 * of the distance between the Items in the same position in the tuples.
+	 * @param obj is the external tuple
+	 * @return distance between the current tuple and the tuple obj
+	 */
 	public double getDistance(Tuple obj)
 	{
 		double dist=0.0;
@@ -44,7 +68,12 @@ public class Tuple implements Serializable{
 		return dist;
 	}
 
-	//restituisce la media delle distanze tra la tupla corrente e quelle ottenibili dalle righe della matrice DATA con indice in clusteredData.
+	/**
+	 * Return the average of the distances between the current tuple and those obtainable 
+	 * from the lines of data with index content in clusteredData
+	 * @param data is the table on which computes the distance with the current tuple
+	 * @param clusteredData is a set of Integer from which get the indexes of tuples in data
+	 */
 	public double avgDistance(Data data, Set<Integer> clusteredData)
 	{
 		double p=0.0,sumD=0.0;
@@ -57,6 +86,11 @@ public class Tuple implements Serializable{
 		return p;
 	}
 
+	/**
+	 * Overrides Object's toString
+	 * @return the name of every attribute in the tuple
+	 */
+	@Override
 	public String toString ()
 	{
 		String str = " ";

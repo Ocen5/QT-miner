@@ -19,28 +19,37 @@ import database.TableData;
 
 public class Data implements Serializable{
 
-	private List<Example> data; //tabella per contenere i valori 
-	//private int numberOfExamples;//numero di righe della tabella
-	private List<Attribute> attributeSet;//lista di 5 stringhe ovvero le colonne
+	/**
+	 * @attribute data is a list in which every Examples models a transition of values
+	 * @attribute attributeSet is a list that contains the type of Attributes that
+	 * every tuple in data contains
+	 */
+	private List<Example> data;
+	private List<Attribute> attributeSet;
+	
+	/**
+	 * Public constructor,
+	 * it load data from database's table called as parameter 'table' into 
+	 * an ArrayList, initializes attributeSet with five objects of type 
+	 * Attributes, one for each attribute. 
+	 * @param table is the name of the table in SQL database
+	 * @throws EmptyDatasetException when the table modeled by data is empty
+	 * @throws SQLException when there are an error on connection with database
+	 * @throws EmptySetException when the list of attributes is empty
+	 */
 	public Data(String table) throws EmptyDatasetException, SQLException, EmptySetException{
 
-		//Costruire e inizializzare la matrice data
 		data=new ArrayList<Example>();
 
-		//Attribute Set
 		attributeSet = new LinkedList<Attribute>();
 
 
-		//memorizzo le transazioni secondo lo schema della tabella nelle specifiche:
-
-		TreeSet<String> outLookValues=new TreeSet<String>();//vettore dominio di valori che assume la colonna OutLook
+		
+		TreeSet<String> outLookValues=new TreeSet<String>();
 		outLookValues.add("overcast");
 		outLookValues.add("rain");
 		outLookValues.add("sunny");
-		//avvalorare ciascune elemento di attributeSet con un oggetto della classe DiscreteAttribute che modella il corrispondente attributo (e.g. outlook, temperature,etc)
 		attributeSet.add(0, new DiscreteAttribute("Outlook",0, outLookValues));
-
-		//TreeSet<Double> temperatureValues=new TreeSet<Double>();
 		attributeSet.add(1, new ContinuousAttribute("Temperature",1, 0, 30.0));
 
 
@@ -87,13 +96,9 @@ public class Data implements Serializable{
 		rs.close();
 		statement.close();
 
-
 		} catch (SQLException SQLexc) {
 			SQLexc.printStackTrace();
-		} /*catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} */
-
+		}
 		if(data.size()==0)
 		{
 			throw new EmptyDatasetException();
@@ -104,32 +109,45 @@ public class Data implements Serializable{
 		}
 	}
 
-	public int getNumberOfExamples(){//restituisce il numero di righe (14)
+	/**
+	 * Return number of tuples stored in data
+	 * @return the number of tuples stored in data
+	 */
+	public int getNumberOfExamples(){
 		return data.size();
 	}
 
-	public int getNumberOfAttributes(){//restituisce il numero di colonne (5)
+	/**
+	 * Return number of types of attribute that data have
+	 * @return the number of attribute stored in attributeSet 
+	 */
+	public int getNumberOfAttributes(){
 		return attributeSet.size();
 	}
 
-
-
-	public Object getAttributeValue(int exampleIndex, int attributeIndex) {//restituisce il valore in posizione (exampleIndex,attributeIndex)
-
-
+	/**
+	 * Return the attribute in position (exampleIndex,attributeIndex)
+	 * @param exampleIndex is the index of data from which get the attribute
+	 * @param attributeIndex is the index of tuple from which get the attribute
+	 * @return the attribute in position (exampleIndex,attributeIndex) of data
+	 */
+	public Object getAttributeValue(int exampleIndex, int attributeIndex) {
 		return data.get(exampleIndex).get(attributeIndex);
-
 	}
-
-	List<Attribute> getAttribute(){//restituisce il vettore colonna
-
+ 
+	/**
+	 * Return attributeSet
+	 * @return the list of attributes of data
+	 */
+	public List<Attribute> getAttribute(){
 		return attributeSet;
 	}
 
-
-	/*stringa che modella lo stato dell'oggetto, 
-	creando una stringa per memorizzare la tabella (vedi explanatorySet)
-	e le transazioni in data[][], opportunamente enumerate. Restituisce tale stringa: */
+	/**
+	 *  Overrides Object's toString
+	 *  @return a string that models the object's status as a matrix with
+	 *  enumerated lines and columns specified by the name of the attribute 
+	 */
 	public String toString(){
 
 		String output=" ";
@@ -156,7 +174,13 @@ public class Data implements Serializable{
 		return output;
 
 	}
-	//Crea e restituisce un oggetto di Tuple che modella come sequenza di coppie Attributo-valore la i-esima riga in data.
+	
+	/**
+	 * Build and return a Tuple type object that models as a sequence of couples attribute-value 
+	 * the line of data with index in input 
+	 * @param index is the line that will be modeled 
+	 * @return a Tuple type object
+	 */
 	public Tuple getItemSet(int index)
 	{
 		Tuple tuple = new Tuple(attributeSet.size());

@@ -11,26 +11,68 @@ import java.util.List;
 
 
 public class TableSchema {
+	
+	/**
+	 * @attribute db is the database on which make queries
+	 */
 	DbAccess db;
+	
+	/**
+	 *Inner class
+	 */
 	public class Column{
+		
+		/**
+		 * @attribute name is the name of the column
+		 * @attribute type identifies type of column
+		 */
 		private String name;
 		private String type;
+		
+		/**
+		 * Public constructor
+		 * @attribute name is the name of the column
+		 * @attribute type identifies type of column
+		 */
 		Column(String name,String type){
 			this.name=name;
 			this.type=type;
 		}
+		
+		/**
+		 * Return the name of the column
+		 * @return name
+		 */
 		public String getColumnName(){
 			return name;
 		}
+		
+		/**
+		 * Return true if column's type is number
+		 * @return true if column's type is number
+		 */
 		public boolean isNumber(){
 			return type.equals("number");
 		}
+		
+		/**
+		 * Overrides Object's toString
+		 * @return the string which models the status of the column
+		 */
 		public String toString(){
 			return name+":"+type;
 		}
 	}
+	
+	
 	List<Column> tableSchema=new ArrayList<Column>();
 
+	/**
+	 * Public constructor
+	 * @param db is the database on which make queries
+	 * @param tableName is the identifier of the table in database
+	 * @throws SQLException for every errors in the query's execution
+	 */
 	public TableSchema(DbAccess db, String tableName) throws SQLException{
 		this.db=db;
 		HashMap<String,String> mapSQL_JAVATypes=new HashMap<String, String>();
@@ -61,11 +103,19 @@ public class TableSchema {
 
 	}
 
-
+	/**
+	 * Return number of attributes in the schema
+	 * @return number of attributes in the schema
+	 */
 	public int getNumberOfAttributes(){
 		return tableSchema.size();
 	}
 
+	/**
+	 * Return the column in schema in position 'index'
+	 * @param index of the column to get
+	 * @return the column in schema in position 'index'
+	 */
 	public Column getColumn(int index){
 		return tableSchema.get(index);
 	}

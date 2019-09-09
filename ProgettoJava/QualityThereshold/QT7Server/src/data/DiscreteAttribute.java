@@ -4,36 +4,40 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 public class DiscreteAttribute extends Attribute implements Iterable<String>
-{
+{	
+	/**
+	 * @attribute Set of values 
+	 */
 	private TreeSet<String> values;
 
-	public DiscreteAttribute(String name, int index, TreeSet<String> values) 
+	/**
+	 * Package constructor
+	 * @param name of the Discrete Attribute
+	 * @param index of the Discrete Attribute
+	 * @param values is a Set of values for attribute's domain
+	 */
+	DiscreteAttribute(String name, int index, TreeSet<String> values) 
 	{
 		super(name,index);
 		this.values=values;
-
-		/*this.values=new TreeSet<String>();
-		 for(String s:values)
-		 {
-		 this.values.add(s);
-		 }
-		 */
 	}
 
-	int getNumberOfDistinctValues()//restituisce la dimensione di values
+	/**
+	 * Return size of the set "values"
+	 * @return size of the set "values"
+	 */
+	int getNumberOfDistinctValues()
 	{
 		return values.size();
 	}
 
+	/**
+	 * Return an iterator from the set "values"
+	 * @return an iterator from the set "values"
+	 */
 	@Override
-	public Iterator<String> iterator()//restituisce il valore in posizione i del vettore di stringhe values
+	public Iterator<String> iterator()
 	{
 		return values.iterator();
 	}
-
-
-
-
-
-
 }

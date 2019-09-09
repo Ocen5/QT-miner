@@ -9,24 +9,34 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-// modella l’insieme di transazioni in una tabella
+// modella lâ€™insieme di transazioni in una tabella
 import database.TableSchema.Column;
 
 public class TableData {
 
+	/**
+	 * @attribute db is the database on which make queries
+	 */
 	DbAccess db;
 
+	/**
+	 * Public constructor 
+	 * @param db is the database on which make queries
+	 */
 	public TableData(DbAccess db) {
 		this.db=db;
 	}
-
-	/*Ricava lo schema della tabella di nome table.Fa la query per estrarre le tuple dalla tabella. 
-	 * Per ogni tupla del resultset, si crea un oggetto, istanza della classe Example, il cui riferimento 
-	 * va incluso nella lista da restituire. 
-	 * In particolare, per la tupla corrente nel resultset, si estraggono i valori dei singoli campi (usando getDouble() o getString()), 
-	 * e li si aggiungono all’oggetto istanza della classe Example che si sta costruendo.
-	 * eccezione SQLException per errori nella esecuzione della query o EmptySetException se il resultset è vuoto*/
-
+	
+	/**
+	 * Get the schema of the table identified by 'table'. Make the query to extract tuples from the database's table.
+	 * For each tuple of the resultset, methods creates an object instance of Example, whose reference will be
+	 * included in list in return. In particular, by current tuple of resultset, the values â€‹â€‹of the individual fields are extracted
+	 * (using getDouble() and getString()), and they are added at the object instance of the class Example that is being built
+	 * @param table is the identifier of the table in database
+	 * @return transSet that is a list of example that are build from database's data
+	 * @throws SQLException for every errors in the query's execution 
+	 * @throws EmptySetException when resultset is empty
+	 */
 	public List<Example> getDistinctTransazioni(String table) throws SQLException, EmptySetException{
 		LinkedList<Example> transSet = new LinkedList<Example>();
 		Statement statement;
@@ -67,8 +77,13 @@ public class TableData {
 
 	}
 
-	/*Formula ed esegue una query SQL per estrarre i valori distinti ordinati di column 
-	 * e popolare un insieme da restituire (scegliere opportunamente in Set da utilizzare)
+	/**
+	 * Makes and executes a SQL query to extract distinct ordered values of column 
+	 * and populates a set to return
+	 * @param table is the identifier of the table in database
+	 * @param column from which get data
+	 * @return valueSet is a set of ordered values
+	 * @throws SQLException for every errors in the query's execution
 	 */
 	public  Set<Object>getDistinctColumnValues(String table,Column column) throws SQLException{
 		Set<Object> valueSet = new TreeSet<Object>();
@@ -95,11 +110,17 @@ public class TableData {
 		return valueSet;
 
 	}
-	/*Formula ed esegue una query SQL per estrarre il valore aggregato (valore minimo o valore massimo)
-	 *cercato nella colonna column della tabella table. 
-	 *Il metodo solleva e propaga una NoValueException se il resultset è vuoto o il valore calcolato è pari a null
-	 *N.B. aggregate è di tipo QUERY_TYPE dove QUERY_TYPE è la classe enumerativa fornita dal docente*/
-
+	
+	/**
+	 * Makes and executes a SQL query to extract the aggregate value (max value or min value) searched 
+	 * in the column 'column' of the table
+	 * @param table is the identifier of the table in database
+	 * @param column from which get data 
+	 * @param aggregate instance of the enumerative class QUERY_TYPE
+	 * @return value that is the aggregate value computed
+	 * @throws SQLException for every errors in the query's execution
+	 * @throws NoValueException when resultSet is empty or the calculated value is equal to null
+	 */
 	public  Object getAggregateColumnValue(String table,Column column,QUERY_TYPE aggregate) throws SQLException,NoValueException{
 		Statement statement;
 		TableSchema tSchema=new TableSchema(db,table);
@@ -131,9 +152,5 @@ public class TableData {
 		return value;
 
 	}
-
-
-
-
 
 }

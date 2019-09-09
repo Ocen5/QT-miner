@@ -3,12 +3,22 @@ package data;
 
 public class DiscreteItem extends Item
 {
-	public DiscreteItem(Attribute attribute, Object value)
+	
+	/**
+	 * Package constructor that uses the constructor of superclass Item
+	 * @param attribute 
+	 * @param value
+	 */
+	DiscreteItem(Attribute attribute, Object value)
 	{
-		super(attribute, value);//Invoca il costruttore della superclasse Item
+		super(attribute, value);
 	}
 
-	double distance(Object a)//Restituisce 0 se (getValue().equals(a)) , 1 altrimenti
+	/**
+	 * Computes the distance between current Item and parameter a
+	 * @return 0 if getValue.equals(a) is true, 1 otherwise
+	 */
+	double distance(Object a)
 	{
 		if(getValue().equals(a))
 		{
@@ -18,6 +28,5 @@ public class DiscreteItem extends Item
 		{
 			return 1;
 		}
-
 	}
 }

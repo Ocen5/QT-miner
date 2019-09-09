@@ -8,49 +8,78 @@ import data.Tuple;
 
 class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 
+	/**
+	 * @attribute centroid is the tuple that identified the cluster
+	 * @attribute clusteredData is a Set that models which tuples are clustered and which not
+	 */
 	private Tuple centroid;
 	private Set<Integer> clusteredData; 
 
-
+	/**
+	 * Package constructor
+	 * @param centroid is the tuple that identified the cluster
+	 */
 	Cluster(Tuple centroid){
 		this.centroid=centroid;
 		clusteredData=new HashSet<Integer>();
-
 	}
 
+	/**
+	 * Return centroid
+	 * @return centroid
+	 */
 	Tuple getCentroid(){
 		return centroid;
 	}
-
-	//restituisce vero se la tupla cambia il cluster
+	
+	/**
+	 * Return true if adding a tuple change the cluster
+	 * @param id is the identifier of the new tuple
+	 * @return true if adding a tuple change the cluster
+	 */
 	boolean addData(int id){
 		return clusteredData.add(id);
 
 	}
 
-	//verifica se una transazione è clusterizzata nell'array corrente
+	/**
+	 * Return true if the transition identified by 'id' is clustered in current Set
+	 * @param id is the identifier of the new tuple
+	 * @return true if the transition identified by 'id' is clustered in current Set
+	 */
 	boolean contain(int id){
 		return clusteredData.contains(id);
 	}
 
-
-	//rimuove la tupla che ha cambiato il cluster
+	/**
+	 * Removes tuple that change the cluster
+	 * @param id is the identifier of the new tuple
+	 */
 	void removeTuple(int id){
 		clusteredData.remove(id);
-
 	}
 
+	/**
+	 * Return number clustered tuples
+	 * @return number clustered tuples
+	 */
 	int  getSize(){
 		return clusteredData.size();
 	}
 
-
+	/**
+	 * Implements iterator() from Iterable by using Set.iterator()
+	 * @return an instance of Iterator
+	 */
 	public Iterator<Integer> iterator()
 	{
 		return clusteredData.iterator();
 	}
 
-
+	/**
+	 * Overrides Object's toString,
+	 * return a string that models the state of the cluster
+	 */
 	public String toString(){
 		String str="Centroid=(";
 		for(int i=0;i<centroid.getLength();i++)
@@ -60,6 +89,10 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 
 	}
 
+	/**
+	 * Overrides Object's toString,
+	 * return a string that models the state of the cluster
+	 */
 	public String toString(Data data){
 		String str="Centroid=( ";
 		for(int i=0;i<centroid.getLength();i++)
@@ -78,6 +111,10 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable{
 	}
 
 	@Override
+	/**
+	 * Implement Comparable's compareTo() by comparing current cluster with cluster 'o'
+	 * @param o is the cluster that will be compared with current cluster 
+	 */
 	public int compareTo(Cluster o)
 	{
 		if (clusteredData.size()<this.clusteredData.size())
