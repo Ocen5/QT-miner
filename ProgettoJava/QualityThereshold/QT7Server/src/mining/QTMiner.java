@@ -108,7 +108,7 @@ public class QTMiner implements Serializable {
 	 * @param isClustered is a vector of boolean that models which tuple in data are clustered and which not
 	 * @return the most populous cluster found
 	 */
-	Cluster buildCandidateCluster(Data data, boolean isClustered[]) {
+	public Cluster buildCandidateCluster(Data data, boolean isClustered[]) {
 		Cluster cD = null; // cD cluster vuoto che conterrà il più popoloso
 		for (int i = 0; i < isClustered.length; i++) {
 			// inizializza il cluster candidato C con tutte le tuple che rientrano in radius
