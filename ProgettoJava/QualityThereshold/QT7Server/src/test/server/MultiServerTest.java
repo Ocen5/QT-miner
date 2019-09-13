@@ -23,12 +23,12 @@ public class MultiServerTest {
 	@Test
 	public void testRun() throws Exception{
 		try {
-			MultiServer serverOne = new MultiServer();
+			 serverOne = new MultiServer();
 		} catch (IOException e) {
 			fail(e.toString());
 		}
 		try {
-			MultiServer serverTwo = new MultiServer();
+			 serverTwo = new MultiServer();
 			fail();
 		} catch (IOException e) {
 			assertTrue(true);
