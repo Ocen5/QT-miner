@@ -34,7 +34,7 @@ public class TableSchema {
 		 * @attribute name is the name of the column
 		 * @attribute type identifies type of column
 		 */
-		Column(String name,String type){
+		public  Column(String name,String type){
 			this.name=name;
 			this.type=type;
 		}

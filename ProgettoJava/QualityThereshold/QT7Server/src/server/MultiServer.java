@@ -18,6 +18,9 @@ public class MultiServer {
 		run();
 	}
 
+	public MultiServer() throws IOException {
+		s = new ServerSocket (PORT);
+	}
 	/**
 	 * Builds ServerSocket to the PORT 8080 and accept every client building 
 	 * an instance of ServerOneClient (subClass of Thread) that manage the connection

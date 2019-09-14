@@ -51,7 +51,7 @@ public class Tuple implements Serializable{
 
 	/**
 	 * Computes distance between the current tuple and the tuple obj. The distance is the sum 
-	 * of the distance between the Items in the same position in the tuples.
+	 * of the distance between the Items in the same position in tuples.
 	 * @param obj is the external tuple
 	 * @return distance between the current tuple and the tuple obj
 	 */
