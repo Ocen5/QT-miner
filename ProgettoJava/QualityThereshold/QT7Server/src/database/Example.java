@@ -33,7 +33,6 @@ public class Example implements Comparable<Example>, Serializable{
 	 * @param ex is the example to compare with current example
 	 */
 	public int compareTo(Example ex) {
-		
 		int i=0;
 		for(Object o:ex.example){
 			if(!o.equals(this.example.get(i)))

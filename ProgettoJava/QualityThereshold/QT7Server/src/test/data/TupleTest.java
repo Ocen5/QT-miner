@@ -2,6 +2,7 @@ package test.data;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashSet;
@@ -29,34 +30,26 @@ public class TupleTest {
 	 * Initializes all necessary attributes
 	 */
 	@BeforeAll
-	public static void setUp() {
+	public void setUp() {
 		try {
 			DbAccess.initConnection();
 			data = new Data("playtennis");
+			DbAccess.closeConnection();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		testTuple=data.getItemSet(9);
-		emptyTuple = new Tuple(0);
+		emptyTuple = new Tuple(5);
 		emptyClusteredData = new HashSet<Integer>();	//doesn't insert any value
 		fullClusteredData = new HashSet<Integer>();
-		for (int i=1; i<15; i++) {
+		for (int i=0; i<14; i++) {
 			fullClusteredData.add(i);	//insert all values from 1 to 14
 		}
 		testClusteredData = new HashSet<Integer>();
-		for (int i=1; i<15; i++) {
+		for (int i=1; i<14; i++) {
 			testClusteredData.add(i);	//insert odd values only from 1 to 13
 			i++;
 		}
-	}
-	
-	/**
-	 * Test Tuple's constructor
-	 */
-	@Test
-	public void testTuple() {
-		Tuple t = new Tuple(5);
-		assertEquals(5,t.getLength());
 	}
 	
 	/**
@@ -64,9 +57,8 @@ public class TupleTest {
 	 */
 	@Test
 	public void testGetLength() {
-		setUp();
 		assertEquals(5,testTuple.getLength());
-		assertEquals(0,emptyTuple.getLength());
+		assertEquals(5,emptyTuple.getLength());
 	}
 	
 	/**
@@ -74,9 +66,9 @@ public class TupleTest {
 	 */
 	@Test
 	public void testGet() {
-		assertEquals(testTuple.get(inIndex).toString(),"0.1");
+		assertEquals(testTuple.get(inIndex).toString(),"normal");
 		assertEquals(testTuple.get(maxIndex).toString(),"yes");
-		assertEquals(testTuple.get(minIndex).toString(),"sunny");
+		assertEquals(testTuple.get(minIndex).toString(),"rain");
 		
 		Exception e = new IndexOutOfBoundsException();
 		assertThrows(e.getClass(),()->testTuple.get(extraIndex));
@@ -90,10 +82,14 @@ public class TupleTest {
 	@Test
 	public void testGetDistance() {
 		double value = testTuple.getDistance(data.getItemSet(inIndex));
-		assertTrue(value<4.007 && value>4.005);
+		assertTrue(value>2.5 && value<2.7);
 		
-		Exception e = new IndexOutOfBoundsException();
+		value = testTuple.getDistance(testTuple);
+		assertTrue(value == 0);
+		
+		Exception e = new NullPointerException();
 		assertThrows(e.getClass(),()->testTuple.getDistance(emptyTuple));
+		
 	}
 	
 	/**
@@ -101,15 +97,16 @@ public class TupleTest {
 	 */
 	@Test
 	public void testAvgDistance() {
+		setUp();
 		double value = testTuple.avgDistance(data, fullClusteredData);
-		assertTrue(value<35.48 && value>35.46);   //approximately 35.47
+		assertTrue(value>2.2 && value<2.3);   //approximately 2.2216
 		value = testTuple.avgDistance(data, testClusteredData);
-		assertTrue(value<14.39 && value>14.37);  //approximately 14.38
+		assertTrue(value>2.4 && value<2.5);  //approximately 2.4442
 		
-		Exception e = new ArithmeticException();
-		assertThrows(e.getClass(),()->testTuple.avgDistance(data,emptyClusteredData));
+		value = testTuple.avgDistance(data,emptyClusteredData);
+		assertEquals(((Double)testTuple.avgDistance(data,emptyClusteredData)).toString(),"NaN");
 
-		e = new IndexOutOfBoundsException();
+		Exception e = new NullPointerException();
 		assertThrows(e.getClass(),()->emptyTuple.avgDistance(data,testClusteredData));
 	}
 	
@@ -118,8 +115,8 @@ public class TupleTest {
 	 */
 	@Test
 	public void testToString() {
-		assertEquals(testTuple.toString()," sunny 0.1 normal weak yes ");
-		assertEquals(emptyTuple.toString()," ");
+		assertEquals(testTuple.toString()," rain 12.0 normal weak yes ");
+		assertEquals(emptyTuple.toString()," rain null null null null ");
 	}
 	
 	/**
@@ -127,8 +124,8 @@ public class TupleTest {
 	 */
 	@Test
 	public void testAdd() {
-		emptyTuple.add(testTuple.get(inIndex), inIndex);
-		assertEquals(emptyTuple.get(inIndex).toString(),"0.1");
+		emptyTuple.add(testTuple.get(minIndex), minIndex);
+		assertEquals(emptyTuple.get(minIndex).toString(),"rain");
 	}
 }
 

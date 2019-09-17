@@ -160,7 +160,7 @@ public class Data implements Serializable{
 		output = output+"\n";
 
 		for(int i=0; i<data.size(); i++) {
-			output = output + i + ": ";
+			output = output + (i+1) + ": ";
 
 			for(int j=0; j<getNumberOfAttributes(); j++) {
 

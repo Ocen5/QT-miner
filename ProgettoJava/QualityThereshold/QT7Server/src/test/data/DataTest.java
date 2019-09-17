@@ -7,39 +7,38 @@ import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
 
 import data.Data;
-import data.EmptyDatasetException;
 import database.DbAccess;
 
 public class DataTest {
 
 	private static Data data;
 	private static String rightTable = "playtennis";
-	private static String wrongTable = "playfootball";
+	private static String wrongTable = "playfootball";	//existing but empty table
 	private static String inexistentTable = "playbasket";
 	private static String emptyString = "";
-	private static int minLimitLine = 1;
-	private static int maxLimitLine = 14;
-	private static int minLimitColumn = 1;
-	private static int maxLimitColumn = 5;
+	private static int minLimitLine = 0;
+	private static int maxLimitLine = 13;
+	private static int minLimitColumn = 0;
+	private static int maxLimitColumn = 4;
 	private static int extraLimitLine = 20;
 	private static int extraLimitColumn = 10;
 	private static int inLimitLine = 7;
 	private static int inLimitColumn = 3;
-	private static String dataOutput = "   Outlook,  Temperature,  Humidity,  Wind,  Playtennis\n" + 
-			"0: sunny,     30.3,     high,     weak,     no,     \n" + 
-			"1: sunny,     30.3,     high,     strong,     no,     \n" + 
-			"2: overcast,     30.0,     high,     weak,     yes,     \n" + 
-			"3: rain,     13.0,     high,     weak,     yes,     \n" + 
-			"4: rain,     0.0,     normal,    weak,     yes,     \n" + 
-			"5: rain,     0.0,     normal,     strong,     no,     \n" + 
-			"6: overcast,     0.1,     normal,     strong,     yes,     \n" + 
-			"7: sunny,    13.0 ,     high,     weak,     no,     \n" + 
-			"8: sunny,     0.1,     normal,     weak,     yes,     \n" + 
-			"9: rain,     12.0,     normal,     weak,     yes,     \n" + 
-			"10: sunny,     12.5,     normal,     strong,     yes,     \n" + 
-			"11: overcast,     12.5,     high,     strong,     yes,     \n" + 
-			"12: overcast,     29.21,     normal,     weak,     yes,     \n" + 
-			"13: rain,     12.5,     high,     strong,     no,     \n";
+	private static String dataOutput = "   Outlook,  Temperature,  Humidity,  Wind,  PlayTennis,\n" + 
+			"1: sunny,     30.30,     high,     weak,     no,     \n" + 
+			"2: sunny,     30.30,     high,     strong,     no,     \n" + 
+			"3: overcast,     30.00,     high,     weak,     yes,     \n" + 
+			"4: rain,     13.00,     high,     weak,     yes,     \n" + 
+			"5: rain,     0.00,     normal,     weak,     yes,     \n" + 
+			"6: rain,     0.00,     normal,     strong,     no,     \n" + 
+			"7: overcast,     0.10,     normal,     strong,     yes,     \n" + 
+			"8: sunny,     13.00,     high,     weak,     no,     \n" + 
+			"9: sunny,     0.10,     normal,     weak,     yes,     \n" + 
+			"10: rain,     12.00,     normal,     weak,     yes,     \n" + 
+			"11: sunny,     12.50,     normal,     strong,     yes,     \n" + 
+			"12: overcast,     12.50,     high,     strong,     yes,     \n" + 
+			"13: overcast,     29.21,     normal,     weak,     yes,     \n" + 
+			"14: rain,     12.50,     high,     strong,     no,     \n";
 	
 	/**
 	 * Initializes all necessary attributes
@@ -49,6 +48,7 @@ public class DataTest {
 		try {
 			DbAccess.initConnection();
 			data = new Data(rightTable);
+			DbAccess.closeConnection();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -62,18 +62,15 @@ public class DataTest {
 	@Test
 	public void testData()
 	{
-		setUp();
 		assertNotNull(data);
 		assertEquals(5,data.getNumberOfAttributes());
 		assertEquals(14,data.getNumberOfExamples());
 		assertNotNull(data.getAttribute());
 
-		Exception e = new EmptyDatasetException();
+		Exception e = new SQLException();
 		assertThrows(e.getClass(),()-> new Data(wrongTable));
-
-		Exception e1 = new SQLException();
-		assertThrows(e1.getClass(),()-> new Data(inexistentTable));
-		assertThrows(e1.getClass(),()-> new Data(emptyString));
+		assertThrows(e.getClass(),()-> new Data(inexistentTable));
+		assertThrows(e.getClass(),()-> new Data(emptyString));
 
 	}
 
@@ -82,8 +79,7 @@ public class DataTest {
 	 */
 	@Test
 	public void testGetAttributeValue() {
-		
-		assertEquals((String) data.getAttributeValue(inLimitLine,inLimitColumn),"normal");
+		assertEquals((String) data.getAttributeValue(inLimitLine,inLimitColumn),"weak");
 		assertEquals((String) data.getAttributeValue(minLimitLine,minLimitColumn),"sunny");
 		assertEquals((String) data.getAttributeValue(maxLimitLine,minLimitColumn),"rain");
 		assertEquals((String) data.getAttributeValue(minLimitLine,maxLimitColumn),"no");
@@ -101,9 +97,10 @@ public class DataTest {
 	 */
 	@Test
 	public void testGetItemSet() {
-		
+		setUp();
+		System.out.println(data.getItemSet(inLimitLine));
 		assertEquals(data.getItemSet(inLimitLine).toString(),
-				" overcast 0.1 normal strong yes ");
+				" sunny 13.0 high weak no ");
 		assertEquals(data.getItemSet(minLimitLine).toString(),
 				" sunny 30.3 high weak no ");
 		assertEquals(data.getItemSet(maxLimitLine).toString(),
