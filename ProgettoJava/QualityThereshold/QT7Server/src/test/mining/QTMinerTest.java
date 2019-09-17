@@ -1,7 +1,7 @@
 package test.mining;
 
 import data.Data;
-import mining.ClusteringRadiusException;
+import database.DbAccess;
 import mining.QTMiner;
 
 import org.junit.Test;
@@ -19,6 +19,9 @@ public class QTMinerTest {
 	private static QTMiner maxLimit;
 	private static QTMiner inLimit;
 	private static QTMiner extraLimit;
+	private static String minOutputData;
+	private static String inOutputData;
+	private static String maxOutputData;
 	private static String minOutput;
 	private static String inOutput;
 	private static String maxOutput;
@@ -29,7 +32,9 @@ public class QTMinerTest {
 	@BeforeAll
 	public static void setUp() {
 		try {
+			DbAccess.initConnection();
 			data = new Data("playtennis");
+			DbAccess.closeConnection();
 			minRadius = 1;
 			inRadius = 2;
 			maxRadius = 3;
@@ -39,7 +44,7 @@ public class QTMinerTest {
 			inLimit = new QTMiner(inRadius);
 			extraLimit = new QTMiner(extraRadius);
 			
-			minOutput = "1:Centroid=( rain 12.5 high strong no )\n" + 
+			minOutputData = "1:Centroid=( rain 12.5 high strong no )\n" + 
 					"Examples:\n" + 
 					"[ rain 12.5 high strong no ] dist=0.0\n" + 
 					"\nAvgDistance=0.0\n" + 
@@ -87,7 +92,7 @@ public class QTMinerTest {
 					"[ sunny 13.0 high weak no ] dist=0.5766666666666667\n" +
 					"\nAvgDistance=0.5255555555555556\n";
 			
-			inOutput = "1:Centroid=( sunny 30.3 high weak no )\n" + 
+			inOutputData = "1:Centroid=( sunny 30.3 high weak no )\n" + 
 					"Examples:\n" + 
 					"[ sunny 30.3 high weak no ] dist=0.0\n" + 
 					"[ sunny 30.3 high strong no ] dist=1.0\n" + 
@@ -111,7 +116,7 @@ public class QTMinerTest {
 					"[ overcast 29.21 normal weak yes ] dist=1.9736666666666667\n" + 
 					"\nAvgDistance=1.1350555555555557\n";
 			
-			maxOutput = "1:Centroid=( sunny 12.5 normal strong yes )\n" + 
+			maxOutputData = "1:Centroid=( sunny 12.5 normal strong yes )\n" + 
 					"Examples:\n" + 
 					"[ sunny 30.3 high strong no ] dist=2.5933333333333333\n" + 
 					"[ rain 0.0 normal strong no ] dist=2.416666666666667\n" + 
@@ -127,10 +132,29 @@ public class QTMinerTest {
 					"[ overcast 0.1 normal strong yes ] dist=2.9966666666666666\n" + 
 					"[ sunny 13.0 high weak no ] dist=2.5666666666666664\n" + 
 					"[ sunny 0.1 normal weak yes ] dist=2.9966666666666666\n" + 
-					"[ rain 12.0 normal weak yes ] dist=2.6\r\n" + 
+					"[ rain 12.0 normal weak yes ] dist=2.6\n" + 
 					"[ overcast 12.5 high strong yes ] dist=1.5833333333333333\n" + 
 					"[ overcast 29.21 normal weak yes ] dist=1.0263333333333333\n" +
 					"\nAvgDistance=2.034633333333333\n";
+			
+			minOutput = "1: Centroid=(rain 12.5 high strong no )\n" + 
+					"2: Centroid=(overcast 29.21 normal weak yes )\n" + 
+					"3: Centroid=(overcast 12.5 high strong yes )\n" + 
+					"4: Centroid=(sunny 12.5 normal strong yes )\n" + 
+					"5: Centroid=(sunny 0.1 normal weak yes )\n" + 
+					"6: Centroid=(overcast 0.1 normal strong yes )\n" + 
+					"7: Centroid=(rain 0.0 normal strong no )\n" + 
+					"8: Centroid=(rain 13.0 high weak yes )\n" + 
+					"9: Centroid=(overcast 30.0 high weak yes )\n" + 
+					"10: Centroid=(rain 0.0 normal weak yes )\n" + 
+					"11: Centroid=(sunny 30.3 high weak no )\n";
+			
+			inOutput = "1: Centroid=(sunny 30.3 high weak no )\n" + 
+					"2: Centroid=(overcast 12.5 high strong yes )\n" + 
+					"3: Centroid=(rain 0.0 normal weak yes )\n";
+			
+			maxOutput = "1: Centroid=(sunny 12.5 normal strong yes )\n" + 
+					"2: Centroid=(overcast 30.0 high weak yes )\n";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,27 +162,31 @@ public class QTMinerTest {
 	}
 	
 	/**
-	 * Test compute() method and toString(Data data) method of ClusterSet
+	 * Test compute() method and toString(Data data),toString() methods of ClusterSet
 	 */
 	@Test
 	public void testCompute() {
 		setUp();
 		int numClusters;
 		try {
+			
 			numClusters = minLimit.compute(data);
 			assertEquals(numClusters,11);
-			assertEquals(minLimit.getC().toString(data),minOutput);
+			assertEquals(minLimit.getC().toString(data),minOutputData);
+			assertEquals(minLimit.toString(),minOutput);
 			
 			numClusters = inLimit.compute(data);
 			assertEquals(numClusters,3);
-			assertEquals(inLimit.getC().toString(data),inOutput);
+			assertEquals(inLimit.getC().toString(data),inOutputData);
+			assertEquals(inLimit.toString(),inOutput);
 			
 			numClusters = maxLimit.compute(data);
 			assertEquals(numClusters,2);
-			assertEquals(maxLimit.getC().toString(data),maxOutput);
+			assertEquals(maxLimit.getC().toString(data),maxOutputData);
+			assertEquals(maxLimit.toString(),maxOutput);
 			
-			Exception e = new ClusteringRadiusException();
-			assertThrows(e.getClass(),()->extraLimit.compute(data));
+			numClusters = extraLimit.compute(data);
+			assertEquals(numClusters,1);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
