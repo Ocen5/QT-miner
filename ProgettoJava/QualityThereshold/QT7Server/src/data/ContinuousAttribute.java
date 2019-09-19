@@ -1,39 +1,42 @@
 package data;
 
-public class ContinuousAttribute extends Attribute{
+/**
+ * Attribute characterized by a real value.
+ */
+public class ContinuousAttribute extends Attribute {
 
 	/**
-	 * Limits of values' domain that attribute can be
-	 * @attribute max is the max limit
-	 * @attribute min is the min limit
+	 * Max limit of the domain.
 	 */
 	private double max;
+	
+	/**
+	 * Min limit of the domain.
+	 */
 	private double min;
 
 
 	/**
-	 * Package constructor
+	 * Package constructor.
 	 * @param name of the Continuous Attribute
 	 * @param index of the Continuous Attribute
 	 * @param min is the max limit of the domain
 	 * @param max is the max limit of the domain
 	 */
-	ContinuousAttribute(String name, int index, double min, double max)
-	{
-		super(name,index);
+	ContinuousAttribute(String name, int index, double min, double max) {
+		super(name, index);
 		this.min = min;
 		this.max = max;
 	}
 
 	/**
-	 * Computes and returns a normalization of the input into a domain [0,1]
+	 * Computes and returns a normalization of the input into a domain [0,1].
 	 * @param v is values that will be normalized
 	 * @return values normalized
 	 */
-	double getScaledValue(double v)
-	{
+	double getScaledValue(double v) {
 		double V;
-		V=(v-min)/(max-min);
+		V = (v - min) / (max - min);
 		return V;
 	}
 }

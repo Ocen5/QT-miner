@@ -4,24 +4,49 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * The database access class.
+ */
 public class DbAccess {
+	
 	/**
-	 * @attribute DRIVER_CLASS_NAME is the driver used to get connection with SQL  
-	 * @attribute DBMS is the protocol used
-	 * @attribute SERVER is the identifier of the server of the database
-	 * @attribute DATABASE is the name of the database
-	 * @attribute PORT is the port on which DBMS MySQL accepts connections
-	 * @attribute USER_ID is the login user name 
-	 * @attribute PASSWORD is the login password for the user 'MapUser'
-	 * @attribute conn manage a connection
+	 * Driver used to get connection with SQL.
 	 */
-	private final static String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
-	private final static String DBMS = "jdbc:mysql";
-	private final static String SERVER= "localhost";
-	private final static String DATABASE = "MapDB";
-	private final static String PORT= "3306";
-	private final static String USER_ID = "MapUser";
-	private final static String PASSWORD = "map";
+	private static final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+	
+	/**
+	 * The protocol used.
+	 */
+	private static final String DBMS = "jdbc:mysql";
+	
+	/**
+	 * The identifier of the server of the database.
+	 */
+	private static final String SERVER = "localhost";
+	
+	/**
+	 * The name of the database.
+	 */
+	private static final String DATABASE = "MapDB";
+	
+	/**
+	 * The port on which DBMS MySQL accepts connections.
+	 */
+	private static final String PORT = "3306";
+	
+	/**
+	 * The login user name.
+	 */
+	private static final String USER_ID = "MapUser";
+	
+	/**
+	 * The login password for the user 'MapUser'.
+	 */
+	private static final String PASSWORD = "map";
+	
+	/**
+	 * The connection established with database.
+	 */
 	private static Connection conn;
 
 
@@ -32,29 +57,26 @@ public class DbAccess {
 	 * @throws ClassNotFoundException when class loader doesn't find a Driver 
 	 * @throws SQLException for every SQL error
 	 */
-	public static void initConnection() throws DatabaseConnectionException, ClassNotFoundException, SQLException
-	{	
+	public static void initConnection() throws DatabaseConnectionException, ClassNotFoundException, SQLException {	
 		Class.forName(DRIVER_CLASS_NAME); 
-		conn = DriverManager.getConnection(DBMS+"://"+SERVER+":"+PORT+"/"+DATABASE+"?useSSL=false",USER_ID,PASSWORD);
+		conn = DriverManager.getConnection(DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE + "?useSSL=false", USER_ID, PASSWORD);
 	}
 	
 	/**
-	 * Return the connection established with SQL database
+	 * Return the connection established with SQL database.
+	 * @return conn is a connection to MySQL
 	 */
-	public static Connection getConnection()
-	{
+	public static Connection getConnection() {
 		return conn;
 	}
 
 	/**
-	 * Close the connection with SQL database
+	 * Close the connection with SQL database.
 	 */
-	public static void closeConnection()
-	{
+	public static void closeConnection() {
 		try {
 			conn.close();
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

@@ -2,28 +2,33 @@ package data;
 
 import java.io.Serializable;
 
-public abstract class Item implements Serializable{
+/**
+ * Generic item.
+ */
+public abstract class Item implements Serializable {
 	
 	/**
-	 * @attribute Attribute is the type of attribute stored in the Item
-	 * @attribute Value is the value of attribute stored in the Item
+	 * The type of attribute stored in the Item.
 	 */
 	private Attribute attribute;
+	
+	/**
+	 * The value of attribute stored in the Item.
+	 */
 	private Object value;
 	
 	/**
-	 * Package constructor
-	 * @param Attribute is the type of attribute stored in the Item 
-	 * @param Value is the value of attribute stored in the Item
+	 * Package constructor.
+	 * @param attribute is the type of attribute stored in the Item 
+	 * @param value is the value of attribute stored in the Item
 	 */
-	Item(Attribute attribute, Object value)
-	{
-		this.attribute=attribute;
-		this.value=value;
+	Item(Attribute attribute, Object value) {
+		this.attribute = attribute;
+		this.value = value;
 	}
 
 	/**
-	 * Return the Attribute stored in the Item
+	 * Return the Attribute stored in the Item.
 	 * @return the attribute stored in the Item 
 	 */
 	Attribute getAttribute() {
@@ -31,7 +36,7 @@ public abstract class Item implements Serializable{
 	}
 
 	/**
-	 * Return the value of the attribute stored in the Item
+	 * Return the value of the attribute stored in the Item.
 	 * @return value of the attribute stored in the Item
 	 */
 	Object getValue() {
@@ -39,17 +44,19 @@ public abstract class Item implements Serializable{
 	}
 	
 	/**
-	 * Overrides Object's toString
+	 * Overrides Object's toString.
 	 * @return the string by the value's toString()
 	 */
-	@Override
-	public String toString() {
+	
+	@Override public String toString() {
 		return value.toString();
 	}
 
 
 	/**
-	 * abstract method which will be implemented differently in subclasses
+	 * abstract method which will be implemented differently in subclasses.
+	 * @param a is the object on wich compute distance with current Item
+	 * @return distance between current Item and a
 	 */
 	abstract double distance(Object a);
 }

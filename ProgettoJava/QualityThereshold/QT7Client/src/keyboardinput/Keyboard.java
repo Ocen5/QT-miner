@@ -229,7 +229,6 @@ public class Keyboard {
 	}
 
 	/**
-	 * 
 	 * Returns a long integer read from standard input.
 	 */
 	public static long readLong() {
@@ -245,7 +244,6 @@ public class Keyboard {
 	}
 
 	/**
-	 * 
 	 * Returns a float read from standard input.
 	 */
 	public static float readFloat() {
