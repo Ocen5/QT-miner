@@ -1,29 +1,44 @@
 package test.database;
 
-import database.DatabaseConnectionException;
-import database.DbAccess;
 import database.Example;
-import data.Data;
-
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.sql.SQLException;
-
+/**
+ * Example class tester.
+ */
 public class ExampleTest {
 
+	/**
+	 * The testing Example.
+	 */
 	private static Example testExample;
+	
+	/**
+	 * A testing Example, equal to 'testExample'.
+	 */
 	private static Example equalExample;
+	
+	/**
+	 * A testing Example, minor than 'testExample'.
+	 */
 	private static Example minorExample;
+	
+	/**
+	 * A testing Example, major than 'testExample'.
+	 */
 	private static Example majorExample;
+	
+	/**
+	 * The right configuration of testExample to check toString() method.
+	 */
 	private static String testOutput;
 	
 	/**
-	 * Initializes all necessary attributes
+	 * Initializes all necessary attributes.
 	 */
-	@BeforeAll
-	public static void setUp() {
+	@BeforeAll public static void setUp() {
 		testExample = new Example();
 		equalExample = new Example();
 		minorExample = new Example();
@@ -49,22 +64,20 @@ public class ExampleTest {
 	}
 	
 	/**
-	 * Test compareTo() method of Example
+	 * Test compareTo() method of Example.
 	 */
-	@Test
-	public void testCompareTo() {
-		assertEquals(0,testExample.compareTo(equalExample));
-		assertEquals(-1,testExample.compareTo(minorExample));
-		assertEquals(4,testExample.compareTo(majorExample));
+	@Test public void testCompareTo() {
+		assertEquals(0, testExample.compareTo(equalExample));
+		assertEquals(-1, testExample.compareTo(minorExample));
+		assertEquals(4, testExample.compareTo(majorExample));
 	}
 	
 	/**
-	 * Test toString() method of Example
+	 * Test toString() method of Example.
 	 */
-	@Test
-	public void testToString() {
+	@Test public void testToString() {
 		setUp();
-		assertEquals(testExample.toString(),testOutput);
+		assertEquals(testExample.toString(), testOutput);
 	}
 	
 }

@@ -1,27 +1,31 @@
 package test.server;
 
-import org.junit.Test;
-
-import server.MultiServer;
-
-import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
-import java.net.BindException;
+import org.junit.Test;
+import server.MultiServer;
+import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * MultiServer class tester.
+ */
 public class MultiServerTest {
 
+	/**
+	 * The first Server.
+	 */
 	private static MultiServer serverOne;
+	
+	/**
+	 * The second Server.
+	 */
 	private static MultiServer serverTwo;
 	
 	/**
 	 * Test what happens if someone try to run Server program
-	 * while another one is running
-	 * @throws IOException 
+	 * while another one is running.
 	 */
-	@Test
-	public void testRun() throws Exception{
+	@Test public void testRun() {
 		try {
 			 serverOne = new MultiServer();
 		} catch (IOException e) {

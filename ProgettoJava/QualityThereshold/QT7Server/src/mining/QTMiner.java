@@ -1,5 +1,6 @@
 package mining;
 
+import data.Data;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,19 +9,23 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import data.Data;
-
+/**
+ * The Quality Threshold miner class.
+ */
 public class QTMiner implements Serializable {
 
 	/**
-	 * @attribute C is the clusterSet that will be computed
-	 * @attribute radius is the distance that a cluster can cover
+	 * The clusterSet that will be computed.
 	 */
 	private ClusterSet C;
+	
+	/**
+	 * The distance that a cluster can cover.
+	 */
 	private double radius;
 
 	/**
-	 * Public constructor
+	 * Public constructor.
 	 * @param radius is the distance that a cluster can cover
 	 */
 	public QTMiner(double radius) {
@@ -29,7 +34,7 @@ public class QTMiner implements Serializable {
 	}
 
 	/**
-	 * Public constructor, it build a ClusterSet by reading it on a file
+	 * Public constructor, it build a ClusterSet by reading it on a file.
 	 * @param fileName is the file's identifier
 	 * @throws FileNotFoundException when file doesn't exist
 	 * @throws IOException for every error from IO
@@ -44,9 +49,9 @@ public class QTMiner implements Serializable {
 	}
 
 	/**
-	 * Serialize the content of ClusterSet C in a file in File System 
+	 * Serialize the content of ClusterSet C in a file in File System.
 	 * @param fileName identifier that will be given to file
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException if method doesn't find file
 	 * @throws IOException for every error from IO
 	 */
 	public void salva(String fileName) throws FileNotFoundException, IOException {
@@ -58,13 +63,13 @@ public class QTMiner implements Serializable {
 	}
 
 	/**
-	 * Return the Set of Clusters C
+	 * Return the Set of Clusters C.
 	 * @return the Set of Clusters C
 	 */
 	public ClusterSet getC() {
 		return C;
 	}
-	
+
 	/**
 	 * Computes data related to radius:
 	 * 1)Builds a cluster for each tuple not yet clustered, including data(not yet clustered
@@ -74,14 +79,15 @@ public class QTMiner implements Serializable {
 	 * 3)Returns at phase 1. while there are still tuples to assign to a cluster.
 	 * @param data is the table of tuples that will be computed
 	 * @return the number of cluster
-	 * @throws ClusteringRadiusException
+	 * @throws ClusteringRadiusException if compute made just one cluster
 	 */
 	public int compute(Data data) throws ClusteringRadiusException {
 		int numclusters = 0;
 		boolean isClustered[] = new boolean[data.getNumberOfExamples()];
 
-		for (int i = 0; i < isClustered.length; i++)
+		for (int i = 0; i < isClustered.length; i++) {
 			isClustered[i] = false;
+		}
 		int countClustered = 0;
 
 		while (countClustered != data.getNumberOfExamples()) {
@@ -103,7 +109,7 @@ public class QTMiner implements Serializable {
 	}
 
 	/**
-	 * Builds a cluster for each tuple not yet clustered and establishes which one is the most populous
+	 * Builds a cluster for each tuple not yet clustered and establishes which one is the most populous.
 	 * @param data is the table of tuples that will be clustered
 	 * @param isClustered is a vector of boolean that models which tuple in data are clustered and which not
 	 * @return the most populous cluster found
@@ -113,30 +119,32 @@ public class QTMiner implements Serializable {
 		for (int i = 0; i < isClustered.length; i++) {
 			// inizializza il cluster candidato C con tutte le tuple che rientrano in radius
 			Cluster C = new Cluster(data.getItemSet(i));
-			if (isClustered[i] == false) {
+			if (!isClustered[i]) {
 				for (int j = 0; j < isClustered.length; j++) {
-					if (isClustered[j] == false) {
+					if (!isClustered[j]) {
 						if (data.getItemSet(i).getDistance(data.getItemSet(j)) <= radius) {
 							C.addData(j);
 						}
 					}
 				}
-
-				if (cD == null)
+				if (cD == null) {
 					cD = C;
-				else if (C.getSize() > cD.getSize())// qui decido quale cluster tra cD e C è più popoloso
-					cD = C;
+				} else {
+					if (C.getSize() > cD.getSize()) {	// qui decido quale cluster tra cD e C è più popoloso
+						cD = C;
+					}
+				}
 			}
 		}
 		return cD;
 	}
-	
+
 	/**
 	 * Overrides Object's toString,
-	 * a string with every centroid of the Set C
+	 * a string with every centroid of the Set C.
+	 * @return toString() of a ClusterSet
 	 */
-	public String toString()
-	{
+	public String toString() {
 		return C.toString();
 	}
 }
