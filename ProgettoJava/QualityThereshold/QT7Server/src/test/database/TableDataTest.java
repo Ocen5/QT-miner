@@ -1,6 +1,5 @@
 package test.database;
 
-import database.DatabaseConnectionException;
 import database.DbAccess;
 import database.QUERY_TYPE;
 import database.TableData;
