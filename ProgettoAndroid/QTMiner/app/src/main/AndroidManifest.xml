@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 <manifest xmlns:android = "http://schemas.android.com/apk/res/android"
-    package = "com.example.ablminer">
+    package = "com.example.qtminer">
     <uses-permission android:name = "android.permission.INTERNET" />
     <uses-permission android:name = "android.permission.ACCESS_NETWORK_STATE" />
     <application
@@ -12,22 +12,21 @@
         android:supportsRtl = "true"
         android:theme = "@style/AppTheme">
         <activity
-            android:name = "com.example.ablminer.MainActivity"
-            android:label = "ABL Miner">
+            android:name = "com.example.qtminer.MainActivity"
+            android:label = "QT Miner">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name = "android.intent.action.MAIN" />
                 <category android:name = "android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.ablminer.Info">
+        <activity android:name="com.example.qtminer.Info">
         </activity>
-        <activity android:name="com.example.ablminer.Dialog">
+        <activity android:name="com.example.qtminer.Dialog">
         </activity>
-        <activity android:name="com.example.ablminer.File">
+        <activity android:name="com.example.qtminer.DataB">
         </activity>
-        <activity android:name="com.example.ablminer.DataB">
-        </activity>
+        <activity android:name="com.example.qtminer.FromFile" />
     </application>
 
 </manifest>

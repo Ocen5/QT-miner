@@ -1,12 +1,12 @@
-package com.example.ablminer;
+package com.example.qtminer;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class Dialog extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class Dialog extends AppCompatActivity {
 
         //Titolo
         dialog.setTitle("Choose an Option");
-
+        //Evito che cliccando fuori scompaia il dialog
         dialog.setCancelable(false);
 
         //Gestisco il bottone di chiusura della dialog (quello al centro)
@@ -49,11 +49,12 @@ public class Dialog extends AppCompatActivity {
         // Faccio comparire la dialog
         dialog.show();
     }
+    //Fa partire l'activity FromFile
     public void runFile(){
-        Intent file = new Intent(this,File.class);
+        Intent file = new Intent(this, FromFile.class);
         startActivity(file);
     }
-
+    //Fa partire l'activity DataB
     public void runDataB(){
         Intent datab = new Intent(this,DataB.class);
         startActivity(datab);
