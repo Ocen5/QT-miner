@@ -72,8 +72,6 @@ public class TableDataTest {
 	
 	/**
 	 * Initializes all necessary attributes.
-	 * @throws DatabaseConnectionException 
-	 * @throws ClassNotFoundException 
 	 */
 	@BeforeAll public static void setUp() {
 		try {
