@@ -151,7 +151,6 @@ public class DataTest {
 	 */
 	@Test public void testGetItemSet() {
 		setUp();
-		System.out.println(data.getItemSet(inLimitLine));
 		assertEquals(data.getItemSet(inLimitLine).toString(),
 				" sunny 13.0 high weak no ");
 		assertEquals(data.getItemSet(minLimitLine).toString(),
