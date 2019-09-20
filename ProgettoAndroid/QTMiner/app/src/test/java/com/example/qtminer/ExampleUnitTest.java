@@ -1,4 +1,4 @@
-package com.example.ablminer;
+package com.example.qtminer;
 
 import org.junit.Test;
 
