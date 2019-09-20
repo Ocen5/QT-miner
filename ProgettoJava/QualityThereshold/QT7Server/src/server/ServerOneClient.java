@@ -142,6 +142,8 @@ public class ServerOneClient extends Thread {
 				f.printStackTrace();
 			}
 			e.printStackTrace();
+		} finally {
+			MultiServer.decrementCountClient();
 		}
 	}
 }

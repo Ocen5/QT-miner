@@ -19,7 +19,12 @@ public class MultiServer {
 	 * The ServerSocket that manages MultiServer.
 	 */
 	private static ServerSocket s;
-
+	
+	/**
+	 * Count how many Clients are connected to MultiServer.
+	 */
+	private static int countClients;
+	
 	/**
 	 * Public Constructor.
 	 * @throws IOException for every IO error
@@ -34,6 +39,7 @@ public class MultiServer {
 	 * @throws IOException for every IO error
 	 */
 	public static void main(String[] args) throws IOException {
+		countClients = 0;
 		run();
 	}
 
@@ -52,6 +58,7 @@ public class MultiServer {
 				System.out.println("accepting " + socket);
 				try {
 					new ServerOneClient(socket);
+					countClients++;
 				} catch (IOException e) {
 					System.err.println(e.getMessage());
 				}
@@ -73,5 +80,13 @@ public class MultiServer {
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	/**
+	 * Decrements countClients when a Client disconnects from MultiServer.
+	 */
+	public static void decrementCountClient() {
+		countClients--;
+	}
+	
 }
 
