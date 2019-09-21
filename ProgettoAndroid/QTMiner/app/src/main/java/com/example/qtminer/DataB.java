@@ -74,7 +74,7 @@ public class DataB extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), " Too much tuples in one cluster !!", Toast.LENGTH_LONG).show();
                             runActivityMain();
                         } else {
-                            testo += " \n com.example.qtminer.File saved";
+                            testo += " \n File saved";
                             tvMessages.setText(testo);
                         }
                     }
