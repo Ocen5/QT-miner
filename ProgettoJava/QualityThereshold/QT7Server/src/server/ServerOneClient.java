@@ -16,7 +16,7 @@ import mining.QTMiner;
 public class ServerOneClient extends Thread {
 
 	/**
-	 * The Dataset.
+	 * The DataSet.
 	 */
 	private Data data;
 	
@@ -142,8 +142,6 @@ public class ServerOneClient extends Thread {
 				f.printStackTrace();
 			}
 			e.printStackTrace();
-		} finally {
-			MultiServer.decrementCountClient();
 		}
 	}
 }
