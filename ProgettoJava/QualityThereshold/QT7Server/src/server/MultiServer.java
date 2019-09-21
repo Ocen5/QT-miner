@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -45,7 +46,8 @@ public class MultiServer {
 	 */
 	private static void run() throws IOException {
 		s = new ServerSocket(PORT);
-		System.out.println("Server Started : " + s);
+		InetAddress a = s.getInetAddress();
+		System.out.println("Server Started : IP= " + a.getLocalHost().getHostAddress() + " Port= " + PORT);
 		try {
 			while (true) {
 				Socket socket = s.accept();
