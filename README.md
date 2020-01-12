@@ -1,2 +1,3 @@
 # CasoDiStudioMAP
-Repository per il caso di studio dell'insegnamento Metodi Avanzati di Programmazione
+Repository per il caso di studio dell'insegnamento Metodi Avanzati di Programmazione.
+ok
